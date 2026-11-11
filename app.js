@@ -703,12 +703,17 @@ async function iniciarNutriBot() {
     }
 }
 
+
 // CIERRE CORRECTO
 async function cerrarTodo(signal) {
     console.log(`Cerrando NutriBot (${signal})...`);
 
     if (bot) {
-        bot.stop(signal);
+        try {
+            await bot.stop(signal);
+        } catch (error) {
+            console.log('El bot de Telegram ya estaba detenido.');
+        }
     }
 
     if (servidor) {
